@@ -13,6 +13,20 @@ class PostsController extends Controller
         $this->middleware('auth');
     }
 
+    public function index()
+    {
+        //select all the thisuser(authuser) following profiles(database)user_id
+        $users = auth()->user()->following()->pluck('profiles.user_id');
+        // dd($users);
+
+        //get all the post of all the User(user_id)arrange by latest 
+        //              wherethe user_id in the list of user($users)  get()getall
+        //latest()   = orderBy('created_at','DESC')
+        $posts = \App\Models\Post::whereIn('user_id',$users)->latest()->paginate(5);
+        // dd($posts);
+        return view('posts.index',compact('posts'));
+    }
+
     public function create()
     {
         return view('posts.create');

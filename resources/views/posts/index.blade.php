@@ -2,6 +2,7 @@
 
 @section('content')
 <div class="container self-center  max-w-4xl">
+    @foreach($posts as $post)
     <div class="flex flex-wrap bg-gray-100 p-1 mt-5">
         <div class="w-full md:w-1/2">
             <img src="/storage/{{$post->image}}" alt="">
@@ -25,6 +26,12 @@
             </p>
         </div>
     </div>
-
+    @endforeach
+   
+    <div class="row">
+        <div class="col-12 my-2">
+            {{ $posts->links()}}
+        </div>
+    </div>
 </div>
 @endsection
